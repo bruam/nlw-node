@@ -3,7 +3,6 @@ import { v4 as uuid } from "uuid";
 
 @Entity("users")
 class User {
-
   @PrimaryColumn()
   readonly id : string;
 
@@ -12,6 +11,9 @@ class User {
 
   @Column()
   email: string;
+
+  @Column()
+  admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
@@ -24,8 +26,6 @@ class User {
       this.id = uuid();
     }
   }
-
 }
-
 export { User };
 
