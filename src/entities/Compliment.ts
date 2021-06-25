@@ -1,5 +1,7 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, JoinColumn, ManyToMany, ManyToOne } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Tag } from "./Tag";
+import { User } from "./User";
 
 @Entity("compliments")
 class Compliment {
@@ -10,11 +12,23 @@ class Compliment {
   @Column()
   user_sender: string;
 
+  @JoinColumn({name: "user_sender"})
+  @ManyToOne(() => User)
+  userSender: User;
+
   @Column()
   user_receiver: string;
 
+  @JoinColumn({name: "user_receiver"})
+  @ManyToOne(() => User)
+  userReceiver: User;
+
   @Column()
   tag_id: string;
+
+  @JoinColumn({name: "tag_id"}) // Uma tag_id representa uma tag da entidade Tag
+  @ManyToOne(() => Tag) // Muitos elogios tem uma tag
+  tag: Tag;
 
   @Column()
   message: string;
